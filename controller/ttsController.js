@@ -8,7 +8,8 @@ import {redisClient} from "../db/redisClient.js";
 */
 const getAudioDataById = async (req, res) => {
   const { id } = req.params;
-  const enable_caching = req.query.cache === "true";
+  // const enable_caching = req.query.cache === "true";
+  const enable_caching = "true";
 
   const rowId = `TTS${id}`;
   const cacheKey = `TTS:${id}`;
