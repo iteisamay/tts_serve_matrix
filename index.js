@@ -7,7 +7,7 @@ import pgClient from "./db/pgClient.js";
 import { fileURLToPath } from 'url';
 import path from 'path';
 import ttsRouter from "./router/ttsRouter.js";
-import "./utils/hitSaveCorn.js";
+import {syncRedisHits} from "./utils/hitSaveCorn.js";
 
 
 configDotenv();
@@ -72,3 +72,4 @@ app.use('/s2/images', express.static(path.join(UPLOAD_BASE_PATH, 'images'),{
 app.use('/s2/api/v1/tts', ttsRouter);
 
 app.listen(PORT, () => console.log("Server listening on", PORT));
+syncRedisHits();

@@ -11,12 +11,12 @@ const getAudioDataById = async (req, res) => {
   // const enable_caching = req.query.cache === "true";
   const enable_caching = "true";
 
-  const rowId = `TTS${id}`;
+  // const rowId = `TTS${id}`;
   const cacheKey = `TTS:${id}`;
 
   try {
-    const selectQ = `select * from tbl_tts_record where tts_id=$1;`;
-    const { rows, rowCount } = await pgClient.query(selectQ, [rowId]);
+    const selectQ = `select * from tbl_tts_record where public_token=$1;`;
+    const { rows, rowCount } = await pgClient.query(selectQ, [id]);
 
     if (rowCount !== 1) {
       return res.status(404).send({ msg: "Id does not exist." });
@@ -25,7 +25,7 @@ const getAudioDataById = async (req, res) => {
     if (enable_caching) {
       await redisClient.setEx(
         cacheKey,
-        300, // 5 minutes
+        600, // 5 minutes
         JSON.stringify(rows)
       );
     }

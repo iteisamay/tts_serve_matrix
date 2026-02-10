@@ -8,7 +8,6 @@ const rateLimiter = async (req, res, next) => {
     const ip =
       req.headers["x-forwarded-for"]?.split(",")[0] ||
       req.socket.remoteAddress;
-    console.log(ip);
     const key = `rl:${ip}`;
 
     const count = await redisClient.incr(key);

@@ -7,10 +7,10 @@ import {redisClient} from "../db/redisClient.js";
 
 const checkInCache = async (req, res, next) => {
   const { id } = req.params;
-  const cacheKey = `TTS${id}`;
+  // const cacheKey = `TTS${id}`;
 
   try {
-    const cachedData = await redisClient.get(cacheKey);
+    const cachedData = await redisClient.get(id);
 
     if (cachedData) {
       return res.status(200).json({
