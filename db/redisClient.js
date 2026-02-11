@@ -1,7 +1,9 @@
 import { createClient } from "redis";
+import { configDotenv } from "dotenv";
 
+configDotenv();
 const redisClient = createClient({
-  url: "redis://localhost:6379" // docker exposed port
+  url: `redis://${process.env.REDIS_HOST}:6379`
 });
 
 redisClient.on("error", (err) => {
