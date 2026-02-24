@@ -69,13 +69,13 @@ async function syncRedisHits() {
           if (!count) continue;
 
           const id = keys[i].split(":")[2];
-          const rowId = `TTS${id}`;
+          // const rowId = `TTS${id}`;
 
           await pgClient.query(
             `UPDATE tbl_tts_record
              SET hit_count = hit_count + $1
-             WHERE tts_id = $2`,
-            [count, rowId]
+             WHERE public_token = $2`,
+            [count, id]
           );
         }
 
